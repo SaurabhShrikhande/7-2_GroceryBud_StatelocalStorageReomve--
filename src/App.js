@@ -14,7 +14,8 @@ function App() {
  const [val, setval] = useState("");
 const [ar , setarr] = useState(store());
 localStorage.setItem("ar", JSON.stringify(ar));
-
+// const [visibal , setvisibal] = useState("true");
+ 
 
 function additem(){
   if(val === ""){
@@ -24,15 +25,21 @@ function additem(){
       setval("");
 }
 
+
 function remove(idx){
-  ar.splice(idx, 1)
-  console.log(ar);
-  setarr(ar);
+ let arr2 = [...ar];
+  arr2.splice(idx, 1)
+  // let arr2 =  ar.splice(idx, 1);
+ // console.log(ar);
+  setarr(arr2);
+ localStorage.setItem("ar", JSON.stringify(arr2));
   
-  localStorage.setItem("ar", JSON.stringify(ar));
+ // setvisibal(false);
+ // return setarr(ar);  
+
 }
 
-  return (
+  return ( 
     <div style={{backgroundColor:"#f5f5f5" , minHeight:"100vh",display:"flex", justifyContent:"center", alignItems:"center"}}>
    <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column" , backgroundColor:"#fafafa", }}> 
     <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", padding:"20px"}}>
@@ -48,16 +55,16 @@ function remove(idx){
        </div>
     </div>  
 
-    {
+    {  
       ar.map((item, idx) => 
       {
-        return <div key={idx} style={{display:"flex", justifyContent:"space-between", width:"400px", marginTop:"10px"}}>
+        return /* visibal && */ <div key={idx} style={{display:"flex", justifyContent:"space-between", width:"400px", marginTop:"10px"}}>
           <div>
             <input type="checkbox" />
-            <label style={{margin:"20px"}}>{item}</label>
+            <label style={{margin:"20px" , }}>{item}</label>
           </div>
           <div>
-            <button onClick={(idx) => remove(idx)}>Delete</button>
+            <button onClick={() => remove(idx)}>Delete</button>
           </div>
    
         </div>
